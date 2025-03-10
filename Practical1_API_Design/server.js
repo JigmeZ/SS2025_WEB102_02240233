@@ -1,46 +1,53 @@
-const ErrorResponse = require('../utils/errorResponse');
-const asyncHandler = require('../middleware/async');
-const { users } = require('../utils/mockData');
+const express = require('express');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const cors = require('cors');
+const helmet = require('helmet');
+const path = require('path');
 
-// @desc    Get all users
-// @route   GET /api/users
-// @access  Public
-exports.getUsers = asyncHandler(async (req, res, next) => {
-    // Pagination
-    const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
-    const startIndex = (page - 1) * limit;
-    const endIndex = page * limit;
-    const total = users.length;
+// Load env vars
+dotenv.config();
 
-    // Get paginated results
-    const results = users.slice(startIndex, endIndex);
+const app = express();
 
-    // Pagination result
-    const pagination = {};
+// Middleware
+app.use(express.json());
+app.use(morgan('dev'));
+app.use(helmet());
+app.use(cors());
+app.use(require('./middleware/formatResponse'));
 
-    if (endIndex < total) {
-        pagination.next = {
-            page: page + 1,
-            limit
-        };
-    }
-
-    if (startIndex > 0) {
-        pagination.prev = {
-            page: page - 1,
-            limit
-        };
-    }
-
-    res.status(200).json({
-        success: true,
-        count: results.length,
-        page,
-        total_pages: Math.ceil(total / limit),
-        pagination,
-        data: results
-    });
+// Routes (to be defined later)
+app.use(express.static('public'));
+app.get('/api-docs', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'docs.html'));
 });
 
-app.use(require('./middleware/formatresponse'));
+app.use('/users', require('./routes/users'));
+app.use('/posts', require('./routes/posts'));
+app.use('/comments', require('./routes/comments'));
+app.use('/likes', require('./routes/likes'));
+app.use('/followers', require('./routes/followers'));
+
+// Basic route
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to Social Media API' });
+});
+
+// Error handler middleware (to be defined later)
+app.use(require('./middleware/errorHandler'));
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running in development mode on port ${PORT}`);
+});
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Error: ${err.message}`);
+  // Close server & exit process
+  process.exit(1);
+});
+
+app.use(require('./middleware/formatResponse'));

@@ -1,4 +1,4 @@
-// utils/errorResponse.js
+// utils/errorresponse.js
 class ErrorResponse extends Error {
     constructor(message, statusCode) {
         super(message);
