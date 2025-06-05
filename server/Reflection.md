@@ -1,9 +1,9 @@
 # Reflection
 
-Through this project, I have gained a deeper understanding of designing and implementing RESTful APIs. I learned how to structure endpoints effectively, ensuring they follow best practices for URI design and HTTP methods. Working with tools like Prisma and Supabase has enhanced my ability to manage databases and integrate file storage solutions seamlessly.
+## What I Understand from This
 
-I also explored the importance of middleware in Express.js, such as authentication, file uploads, and error handling, which are crucial for building secure and scalable applications. Implementing features like pagination, cursor-based queries, and relationships between models helped me understand how to handle complex queries efficiently.
+From working on this project, I now have a clearer understanding of how to design and build RESTful APIs that are both efficient and maintainable. I learned the importance of structuring endpoints logically and following best practices for HTTP methods and URI design. Using tools like Prisma and Supabase helped me see how modern backend frameworks and cloud services can simplify database management and file storage integration.
 
-Additionally, I realized the significance of environment variables for managing sensitive data securely and the importance of maintaining a clean and organized project structure. Debugging and resolving issues, such as compatibility problems with dependencies, taught me the value of troubleshooting and adapting to challenges during development.
+I also realized how crucial middleware is in Express.js for handling authentication, file uploads, and errors, which are all essential for building secure and scalable applications. Implementing features such as pagination and managing relationships between models gave me practical experience in handling complex data queries and optimizing performance.
 
-Overall, this project has strengthened my skills in backend development, database management, and API design, preparing me for more advanced projects in the future.
+Managing environment variables taught me about securing sensitive information and keeping configuration flexible. Debugging and resolving issues improved my problem-solving skills and adaptability. Overall, this project gave me hands-on experience with backend development, reinforced the importance of clean code and documentation, and prepared me for more advanced backend projects in the future.
